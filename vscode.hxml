@@ -1,0 +1,8 @@
+--library openfl
+--library hxmaker
+--library hxmaker-openfl
+--library lime
+--library hxmaker-sound
+-D android
+--no-output
+--cpp bin/cpp
