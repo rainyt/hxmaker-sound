@@ -35,7 +35,7 @@ public class EffectSound extends BaseSound {
                 AudioAttributes attributes = new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_GAME)
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-//                        .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                        // .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
                         .build();
                 soundPool = new SoundPool.Builder().setAudioAttributes(attributes).setMaxStreams(30).build();
             }else{
