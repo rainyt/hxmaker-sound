@@ -3,6 +3,7 @@ package org.haxe.extension;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.haxe.lime.HaxeObject;
 
@@ -49,6 +50,7 @@ public class SoundManager extends Extension {
 	 * @return
 	 */
 	public static int load(String assetPath, boolean loadMediaPlayer, HaxeObject callbackObject) {
+		Log.i("SoundManager", "load sound:" + loadMediaPlayer + ", " + assetPath);
 		BaseSound sound = loadMediaPlayer ? new MusicSound() : new EffectSound();
 		int id = nextId++;
 		sound.soundId = id;

@@ -2,6 +2,7 @@ package org.haxe.extension;
 
 import android.media.SoundPool;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +76,8 @@ public class EffectSound extends BaseSound {
     public int play(float startTime) {
         super.play(startTime);
         if(isLoaded){
-            return soundPool.play(__effectSoundId,leftVolume, rightVolume, 1, 1, 1);
+            Log.i("EffectSound","EffectSound.play:" + this.url);
+            return soundPool.play(__effectSoundId,leftVolume, rightVolume, 1, 0, 1);
         }
         return -1;
     }
