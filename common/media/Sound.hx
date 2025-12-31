@@ -44,8 +44,14 @@ class Sound extends EventDispatcher implements IBaseSound {
 	 */
 	public function close():Void {}
 
+	/**
+	 * 回调对象
+	 */
 	private var __callbackObject:Dynamic = null;
 
+	/**
+	 * 音乐通道
+	 */
 	private var __musicChannel:SoundChannel = null;
 
 	/**
@@ -63,7 +69,7 @@ class Sound extends EventDispatcher implements IBaseSound {
 			},
 			onPlayCompleteEvent: function(streamId:Int) {
 				if (__musicChannel != null)
-					__musicChannel.dispatchEvent(new Event(Event.COMPLETE));
+					__musicChannel.dispatchEvent(new Event(Event.SOUND_COMPLETE));
 			},
 		}
 		__soundId = NativeSound.loadSound(stream.url, __isMusic, __callbackObject);

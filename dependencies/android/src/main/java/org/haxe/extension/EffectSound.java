@@ -76,7 +76,7 @@ public class EffectSound extends BaseSound {
     public int play(float startTime) {
         super.play(startTime);
         if(isLoaded){
-            Log.i("EffectSound","EffectSound.play:" + this.url);
+            // Log.i("EffectSound","EffectSound.play:" + this.url);
             return soundPool.play(__effectSoundId,leftVolume, rightVolume, 1, 0, 1);
         }
         return -1;

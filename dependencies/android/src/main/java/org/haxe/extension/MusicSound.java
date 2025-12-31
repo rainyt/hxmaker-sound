@@ -58,7 +58,7 @@ public class MusicSound extends BaseSound {
     @Override
     public int play(float startTime) {
         if(isLoaded){
-            Log.i("MusicSound","MusicSound.play:" + this.url);
+            // Log.i("MusicSound","MusicSound.play:" + this.url);
             if(!player.isPlaying())
                 player.start();
         }
@@ -68,7 +68,7 @@ public class MusicSound extends BaseSound {
     @Override
     public void stop(int streamId) {
         super.stop(streamId);
-        Log.i("MusicSound","MusicSound.stop:" + this.url);
+        // Log.i("MusicSound","MusicSound.stop:" + this.url);
         if(isLoaded){
             if(player.isPlaying()) {
                 player.pause();
