@@ -1,5 +1,6 @@
 package org.haxe.extension;
 
+import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.Log;
@@ -30,7 +31,16 @@ public class EffectSound extends BaseSound {
     public void load(String url) {
         super.load(url);
         if(soundPool == null){
-            soundPool = new SoundPool(10,3,5);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                AudioAttributes attributes = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_GAME)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+//                        .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                        .build();
+                soundPool = new SoundPool.Builder().setAudioAttributes(attributes).setMaxStreams(30).build();
+            }else{
+                soundPool = new SoundPool(30, 3, 5);
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
                 soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
@@ -76,7 +86,7 @@ public class EffectSound extends BaseSound {
     public int play(float startTime) {
         super.play(startTime);
         if(isLoaded){
-            // Log.i("EffectSound","EffectSound.play:" + this.url);
+            Log.i("EffectSound","EffectSound.play:" + this.url);
             return soundPool.play(__effectSoundId,leftVolume, rightVolume, 1, 0, 1);
         }
         return -1;
