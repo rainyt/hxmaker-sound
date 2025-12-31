@@ -43,6 +43,12 @@ public class MusicSound extends BaseSound {
                     return false;
                 }
             });
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    MusicSound.this.onPlayCompleteEvent(soundId);
+                }
+            });
             player.prepareAsync();
         } catch (Exception e) {
             Log.e("MusicSound", "Error loading MP3: " + e.getMessage());
