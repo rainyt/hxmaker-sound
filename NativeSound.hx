@@ -41,6 +41,12 @@ class NativeSound {
 	 * 释放所有声音JNI方法
 	 */
 	private static var hxmaker_sound_disposeAll_jni = JNI.createStaticMethod("org.haxe.extension.SoundManager", "disposeAll", "()V");
+
+	/**
+	 * 获取缓存路径JNI方法
+	 */
+	private static var hxmaker_sound_getApplicationCache_jni = JNI.createStaticMethod("org.haxe.extension.SoundManager", "getCachePath",
+		"()Ljava/lang/String;");
 	#end
 
 	/**
@@ -129,6 +135,18 @@ class NativeSound {
 		hxmaker_sound_disposeAll_jni();
 		#else
 		trace("dispose all sounds");
+		#end
+	}
+
+	/**
+	 * 获取缓存路径
+	 * @return String
+	 */
+	public static function getApplicationCache():String {
+		#if android
+		return hxmaker_sound_getApplicationCache_jni();
+		#else
+		return "/";
 		#end
 	}
 }

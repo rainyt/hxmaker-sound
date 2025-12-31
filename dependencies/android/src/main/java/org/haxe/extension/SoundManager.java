@@ -105,6 +105,9 @@ public class SoundManager extends Extension {
 		players.clear();
 	}
 
+	public static String getCachePath(){
+		return Extension.mainActivity.getCacheDir().getAbsolutePath();
+	}
 
 	/**
 	 * Called when an activity you launched exits, giving you the requestCode

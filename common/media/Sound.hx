@@ -1,5 +1,8 @@
 package common.media;
 
+import sys.FileSystem;
+import haxe.io.Path;
+import sys.io.File;
 import hx.core.BaseSoundChannel;
 import openfl.events.IOErrorEvent;
 import openfl.events.Event;
@@ -16,6 +19,8 @@ import common.media.SoundChannel;
  * 安卓本机使用MP3加载器
  */
 class Sound extends EventDispatcher implements IBaseSound {
+	public static var __tempSoundId:Int = 0;
+
 	/**
 	 * 获得当前声音的长度，单位为毫秒
 	 */
@@ -67,7 +72,16 @@ class Sound extends EventDispatcher implements IBaseSound {
 	 * @param bytes 音频数据
 	 * @param bytesLength 音频数据长度
 	 */
-	public function loadCompressedDataFromByteArray(bytes:ByteArray, bytesLength:Int):Void {}
+	public function loadCompressedDataFromByteArray(bytes:ByteArray, bytesLength:Int):Void {
+		var dir = Path.join([NativeSound.getApplicationCache(), "temp_sounds"]);
+		if (!FileSystem.exists(dir)) {
+			FileSystem.createDirectory(dir);
+		}
+		__tempSoundId++;
+		var save = Path.join([dir, "temp_" + __tempSoundId + ".mp3"]);
+		File.saveBytes(save, bytes);
+		this.load(new URLRequest(save));
+	}
 
 	/**
 	 * 播放当前声音
