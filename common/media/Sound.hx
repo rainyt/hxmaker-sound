@@ -46,6 +46,8 @@ class Sound extends EventDispatcher implements IBaseSound {
 
 	private var __callbackObject:Dynamic = null;
 
+	private var __musicChannel:SoundChannel = null;
+
 	/**
 	 * 加载当前声音，提供加载路径进行加载
 	 * @param stream 加载路径
@@ -60,7 +62,8 @@ class Sound extends EventDispatcher implements IBaseSound {
 				this.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 			},
 			onPlayCompleteEvent: function(streamId:Int) {
-				// this.dispatchEvent(new Event(Event.COMPLETE));
+				if (__musicChannel != null)
+					__musicChannel.dispatchEvent(new Event(Event.COMPLETE));
 			},
 		}
 		__soundId = NativeSound.loadSound(stream.url, __isMusic, __callbackObject);
@@ -96,6 +99,8 @@ class Sound extends EventDispatcher implements IBaseSound {
 		var streamId = NativeSound.play(__soundId);
 		var channel = new SoundChannel();
 		@:privateAccess channel.__soundId = streamId;
+		if (__isMusic)
+			__musicChannel = channel;
 		return channel;
 	}
 }
