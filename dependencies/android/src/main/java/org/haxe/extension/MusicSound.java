@@ -11,6 +11,8 @@ public class MusicSound extends BaseSound {
 
     MediaPlayer player;
 
+    private boolean isPrepared = false;
+
     @Override
     public void load(String url) {
         super.load(url);
@@ -28,7 +30,10 @@ public class MusicSound extends BaseSound {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     // 背景音乐加载完成
-                    MusicSound.this.onCompleteEvent();
+                    if(!isPrepared) {
+                        MusicSound.this.onCompleteEvent();
+                        isPrepared = true;
+                    }
                 }
             });
             player.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -59,8 +64,10 @@ public class MusicSound extends BaseSound {
         super.stop(streamId);
         Log.i("MusicSound","MusicSound.stop:" + this.url);
         if(isLoaded){
-            if(player.isPlaying())
+            if(player.isPlaying()) {
                 player.stop();
+                player.prepareAsync();
+            }
         }
     }
 
