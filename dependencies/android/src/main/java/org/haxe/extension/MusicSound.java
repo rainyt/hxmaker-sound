@@ -71,8 +71,8 @@ public class MusicSound extends BaseSound {
         Log.i("MusicSound","MusicSound.stop:" + this.url);
         if(isLoaded){
             if(player.isPlaying()) {
-                player.stop();
-                player.prepareAsync();
+                player.pause();
+                // player.prepareAsync();
             }
         }
     }
