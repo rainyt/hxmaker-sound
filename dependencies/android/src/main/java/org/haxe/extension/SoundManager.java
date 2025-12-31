@@ -77,7 +77,7 @@ public class SoundManager extends Extension {
 	public static void setVolume(int id, float leftVolume, float rightVolume) {
 		BaseSound player = players.get(id);
 		if (player != null) {
-			player.setVolume(leftVolume, rightVolume);
+			player.setVolume(id, leftVolume, rightVolume);
 		}
 	}
 

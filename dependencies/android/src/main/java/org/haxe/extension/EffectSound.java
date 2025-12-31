@@ -112,4 +112,10 @@ public class EffectSound extends BaseSound {
         super.dispose();
         soundPool.unload(this.__effectSoundId);
     }
+
+    @Override
+    public void setVolume(int streamId, float left, float right) {
+        super.setVolume(streamId, left, right);
+        soundPool.setVolume(streamId, leftVolume, rightVolume);
+    }
 }

@@ -60,7 +60,7 @@ public class BaseSound {
      * @param left
      * @param right
      */
-    public void setVolume(float left, float right){
+    public void setVolume(int streamId, float left, float right){
         this.leftVolume = left;
         this.rightVolume = right;
     }
@@ -85,7 +85,7 @@ public class BaseSound {
      */
     public void onCompleteEvent() {
         isLoaded = true;
-        // Log.i("BaseSound", "onCompleteEvent");
+        Log.i("BaseSound", "onCompleteEvent");
         callbackObject.call0("onCompleteEvent");
     }
 
@@ -94,7 +94,7 @@ public class BaseSound {
      */
     public void onIOErrorEvent(String error) {
         isLoaded = false;
-        // Log.i("BaseSound", "onIOErrorEvent:" + error + " url:" + url);
+        Log.i("BaseSound", "onIOErrorEvent:" + error + " url:" + url);
         callbackObject.call0("onIOErrorEvent");
     }
 
@@ -102,7 +102,7 @@ public class BaseSound {
      * 播放完成事件触发
      */
     public void onPlayCompleteEvent(int streamId){
-        // Log.i("BaseSound", "onPlayCompleteEvent:" + streamId);
+        Log.i("BaseSound", "onPlayCompleteEvent:" + streamId);
         callbackObject.call1("onPlayCompleteEvent",streamId);
     }
 }
