@@ -1,5 +1,6 @@
 package common.media;
 
+import haxe.MainLoop;
 import sys.FileSystem;
 import haxe.io.Path;
 import sys.io.File;
@@ -62,14 +63,20 @@ class Sound extends EventDispatcher implements IBaseSound {
 	public function load(stream:URLRequest, context:SoundLoaderContext = null):Void {
 		__callbackObject = {
 			onCompleteEvent: function() {
-				this.dispatchEvent(new Event(Event.COMPLETE));
+				MainLoop.runInMainThread(() -> {
+					this.dispatchEvent(new Event(Event.COMPLETE));
+				});
 			},
 			onIOErrorEvent: function(error:String) {
-				this.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
+				MainLoop.runInMainThread(() -> {
+					this.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
+				});
 			},
 			onPlayCompleteEvent: function(streamId:Int) {
-				if (__musicChannel != null)
-					__musicChannel.dispatchEvent(new Event(Event.SOUND_COMPLETE));
+				MainLoop.runInMainThread(() -> {
+					if (__musicChannel != null)
+						__musicChannel.dispatchEvent(new Event(Event.SOUND_COMPLETE));
+				});
 			},
 		}
 		__soundId = NativeSound.loadSound(stream.url, __isMusic, __callbackObject);
